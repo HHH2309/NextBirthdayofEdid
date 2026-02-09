@@ -139,6 +139,13 @@ document.getElementById('source').onchange=setBackground;
 setBackground();
 
 // ===== 倒计时 =====
+const countdownArea=document.getElementById('countdown-area');
+const greetingArea=document.getElementById('greeting-area');
+const daysEl=document.getElementById('days');
+const hoursEl=document.getElementById('hours');
+const minutesEl=document.getElementById('minutes');
+const secondsEl=document.getElementById('seconds');
+
 function update(){
   const now=new Date();
   const todayIsBirthday=(now.getMonth()==BIRTH_MONTH-1 && now.getDate()==BIRTH_DAY);
@@ -146,15 +153,17 @@ function update(){
   if(next<now) next.setFullYear(next.getFullYear()+1);
 
   if(todayIsBirthday){
-    document.getElementById('countdown-area').style.display='none';
-    document.getElementById('greeting-area').style.display='block';
+    countdownArea.style.display='none';
+    greetingArea.style.display='block';
     return;
   }
+  countdownArea.style.display='block';
+  greetingArea.style.display='none';
   const diff=next-now;
-  days.textContent=Math.floor(diff/86400000);
-  hours.textContent=Math.floor(diff/3600000)%24;
-  minutes.textContent=Math.floor(diff/60000)%60;
-  seconds.textContent=Math.floor(diff/1000)%60;
+  daysEl.textContent=Math.floor(diff/86400000);
+  hoursEl.textContent=Math.floor(diff/3600000)%24;
+  minutesEl.textContent=Math.floor(diff/60000)%60;
+  secondsEl.textContent=Math.floor(diff/1000)%60;
 }
 update(); setInterval(update,1000);
 </script>
